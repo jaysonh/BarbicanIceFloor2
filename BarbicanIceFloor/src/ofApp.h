@@ -9,6 +9,9 @@
 #include "UserInterface.h"
 #include "SoundManager.h"
 #include "IceFloorRenderer.h"
+#include "IceRenderer.h"
+#include "CrackManager.h"
+
 class ofApp : public ofBaseApp{
 
 	public:
@@ -30,7 +33,10 @@ class ofApp : public ofBaseApp{
     MotionDetector motionDetector;
     SoundManager   soundManager;
     UserInterface  userInterface;
-    IceFloorRenderer    iceRenderer;
+    IceFloorRenderer   iceFloorRenderer;
+    ofSoundPlayer        backgroundSound;
+    IceRenderer         iceRenderer;
+    CrackManager   crackManager;
     
     bool            showDebug;
 };

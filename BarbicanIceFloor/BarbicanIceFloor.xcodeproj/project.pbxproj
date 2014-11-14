@@ -70,6 +70,8 @@
 		E7E077E515D3B63C0020DFD4 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7E077E415D3B63C0020DFD4 /* CoreVideo.framework */; };
 		E7E077E815D3B6510020DFD4 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7E077E715D3B6510020DFD4 /* QTKit.framework */; };
 		E7F985F815E0DEA3003869B5 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7F985F515E0DE99003869B5 /* Accelerate.framework */; };
+		F054A4101A167AC9005971FD /* IceRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F054A40C1A167AC9005971FD /* IceRenderer.cpp */; };
+		F054A4111A167AC9005971FD /* CrackManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F054A40E1A167AC9005971FD /* CrackManager.cpp */; };
 		F285EB3169F1566CA3D93C20 /* ofxPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E112B3AEBEA2C091BF2B40AE /* ofxPanel.cpp */; };
 		F4135EEFC911E9ED211FB6F9 /* core.c in Sources */ = {isa = PBXBuildFile; fileRef = CF528C0E8DBFF5C31E8D6529 /* core.c */; };
 		FB09C6B2A1DA0EA217240CB8 /* ofxCvGrayscaleImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 057122A817D12571F8C0C7A4 /* ofxCvGrayscaleImage.cpp */; };
@@ -307,6 +309,14 @@
 		E90542C149C83316678AB011 /* cxmisc.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = cxmisc.h; path = ../../../addons/ofxOpenCv/libs/opencv/include/opencv/cxmisc.h; sourceTree = SOURCE_ROOT; };
 		ECC34C470C60F0A2AE2761B1 /* random.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = random.h; path = ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/flann/random.h; sourceTree = SOURCE_ROOT; };
 		ECF8674C7975F1063C5E30CA /* ofxGuiGroup.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxGuiGroup.cpp; path = ../../../addons/ofxGui/src/ofxGuiGroup.cpp; sourceTree = SOURCE_ROOT; };
+		F054A40C1A167AC9005971FD /* IceRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IceRenderer.cpp; sourceTree = "<group>"; };
+		F054A40D1A167AC9005971FD /* iceRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iceRenderer.h; sourceTree = "<group>"; };
+		F054A40E1A167AC9005971FD /* CrackManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CrackManager.cpp; sourceTree = "<group>"; };
+		F054A40F1A167AC9005971FD /* CrackManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrackManager.h; sourceTree = "<group>"; };
+		F054A4121A167E9B005971FD /* ice.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = ice.frag; path = bin/data/ice.frag; sourceTree = "<group>"; };
+		F054A4131A167E9C005971FD /* ice.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = ice.vert; path = bin/data/ice.vert; sourceTree = "<group>"; };
+		F054A4141A167E9C005971FD /* crack.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = crack.frag; path = bin/data/crack.frag; sourceTree = "<group>"; };
+		F054A4151A167E9C005971FD /* crack.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = crack.vert; path = bin/data/crack.vert; sourceTree = "<group>"; };
 		F070AF5E3926EB2CB7A15D1B /* params.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = params.h; path = ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/flann/params.h; sourceTree = SOURCE_ROOT; };
 		F4F5B6B8BA2BD52C646ED908 /* OscException.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = OscException.h; path = ../../../addons/ofxOsc/libs/oscpack/src/osc/OscException.h; sourceTree = SOURCE_ROOT; };
 		F7269F96AC34A2B44A680D03 /* ofxCvFloatImage.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxCvFloatImage.h; path = ../../../addons/ofxOpenCv/src/ofxCvFloatImage.h; sourceTree = SOURCE_ROOT; };
@@ -874,6 +884,11 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				F054A4181A167EA3005971FD /* shaders */,
+				F054A40C1A167AC9005971FD /* IceRenderer.cpp */,
+				F054A40D1A167AC9005971FD /* iceRenderer.h */,
+				F054A40E1A167AC9005971FD /* CrackManager.cpp */,
+				F054A40F1A167AC9005971FD /* CrackManager.h */,
 				D569F4DC1A1673820084EEDC /* IceFloorRenderer.cpp */,
 				D569F4DD1A1673820084EEDC /* IceFloorRenderer.h */,
 				D569F4DE1A1673820084EEDC /* MotionDetector.cpp */,
@@ -928,6 +943,18 @@
 				B4A0A006318C06E07DDF19D6 /* usb_libusb10.h */,
 			);
 			name = src;
+			sourceTree = "<group>";
+		};
+		F054A4181A167EA3005971FD /* shaders */ = {
+			isa = PBXGroup;
+			children = (
+				F054A4121A167E9B005971FD /* ice.frag */,
+				F054A4131A167E9C005971FD /* ice.vert */,
+				F054A4141A167E9C005971FD /* crack.frag */,
+				F054A4151A167E9C005971FD /* crack.vert */,
+			);
+			name = shaders;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		F3D2DB7201EFA9F7958F421E /* src */ = {
@@ -1082,6 +1109,7 @@
 				FCC16AB16073FF0581F50ED7 /* loader.c in Sources */,
 				D569F4E61A1673820084EEDC /* SoundManager.cpp in Sources */,
 				D31F5C1B140C59B2AF1533A8 /* registration.c in Sources */,
+				F054A4101A167AC9005971FD /* IceRenderer.cpp in Sources */,
 				49BEEB2DFA5319D55AA6899F /* tilt.c in Sources */,
 				255A7B680DC81E543C875794 /* usb_libusb10.c in Sources */,
 				250A95BA26587BE85DB0A353 /* ofxCvColorImage.cpp in Sources */,
@@ -1110,6 +1138,7 @@
 				63B57AC5BF4EF088491E0317 /* ofxXmlSettings.cpp in Sources */,
 				933A2227713C720CEFF80FD9 /* tinyxml.cpp in Sources */,
 				9D44DC88EF9E7991B4A09951 /* tinyxmlerror.cpp in Sources */,
+				F054A4111A167AC9005971FD /* CrackManager.cpp in Sources */,
 				5A4349E9754D6FA14C0F2A3A /* tinyxmlparser.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
