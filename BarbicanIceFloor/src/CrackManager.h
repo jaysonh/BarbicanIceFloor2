@@ -8,7 +8,9 @@
 
 #ifndef iceCrack_crack_h
 #define iceCrack_crack_h
-
+#include <iostream>
+#include "ofMain.h"
+#include "ofxOpenCv.h"
 
 
 struct Crack {
@@ -36,6 +38,42 @@ public:
     
 };
 
+
+
+// This class represents an area on the surface which can be triggered by movement in it
+
+class HotSpot {
+public:
+    
+    HotSpot();
+    void Set(float x, float y, float r);
+    
+    
+    
+    // Helper Is in hotspot
+    bool IsIn(ofPoint pt) const;
+    void BeginDetect();             // call this at beginning of detect loop
+    void Occupy();                    // call this
+    bool HasTripped() const;
+    void EndDetect();
+    void DebugDisplay() const;
+    
+    static const float triggerResetTime;
+    enum TriggerState { Primed, Tripped, Occupied, Vacated };
+
+    ofPoint     center;
+    float       radius;
+
+protected:
+    TriggerState  state;
+    
+private:
+    bool        occupied;
+    float       resetTime;
+    
+};
+
+
 class CrackManager {
 public:
 
@@ -49,6 +87,11 @@ public:
     
     void Allocate(int size);
     Crack* CreateCrack(float x, float y);
+    void DetectMovement(vector<ofxCvBlob> blobs);
+    
+    void CreateHotspots(float minsize);         // size of the hotspo
+    
+    void drawDebug();
     
     enum CrackMode {
         Master,
@@ -57,8 +100,8 @@ public:
     
     void SetMode(CrackMode mode) { m_mode = mode; }
     
-    const float fadeTime = 2.0f;
-    const float holdTime = 6.0f;
+    static const float fadeTime;
+    static const float holdTime;
     
 protected:
     CrackMode            m_mode;
@@ -68,6 +111,8 @@ protected:
     int                 m_crackTypes_size;
     Crack*              m_cracks;           // array
     int                 m_cracks_size;
+    
+    vector<HotSpot>     m_hotspots;
 };
 
 

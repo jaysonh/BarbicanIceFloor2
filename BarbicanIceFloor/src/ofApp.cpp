@@ -4,8 +4,9 @@
 void ofApp::setup(){
     showDebug=false;
     
+    userInterface.init();
     motionDetector.init();
-    iceFloorRenderer.init();
+   // iceFloorRenderer.init();
     
     backgroundSound.loadSound("atmo 2.mp3");
     backgroundSound.play();
@@ -28,17 +29,20 @@ void ofApp::setup(){
 void ofApp::update(){
     
     motionDetector.update(userInterface.getFarThreshold());
-    iceFloorRenderer.update(motionDetector.getBlobs());
+    crackManager.DetectMovement(motionDetector.getBlobs());
+ //   iceFloorRenderer.update(motionDetector.getBlobs());
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
     ofClear(0,0,0);
     iceRenderer.draw();  // toms renderer
-    iceFloorRenderer.draw();
+    //iceFloorRenderer.draw();
     
-    if(showDebug)
+    if(showDebug){
         motionDetector.drawDebugScreen();
+        crackManager.drawDebug();
+    }
     
     userInterface.draw();
     
@@ -77,7 +81,7 @@ void ofApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
-crackManager.CreateCrack(x,y);
+    crackManager.CreateCrack(x,y);
 }
 
 //--------------------------------------------------------------

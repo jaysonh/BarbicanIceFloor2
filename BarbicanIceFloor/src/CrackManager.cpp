@@ -11,7 +11,9 @@
 #include "CrackManager.h"
 
 
-
+const float HotSpot::triggerResetTime = 8.0f;            // This is the time it takes for a hotspot to re-trigger should be the total of these below?
+const float CrackManager::fadeTime = 2.0f;
+const float CrackManager::holdTime = 6.0f;
 
 
 
@@ -31,6 +33,7 @@ CrackManager::CrackManager(){
     m_crackPlane.setPosition(0.0f,0.0f,0.1f);
     
     m_cracks = NULL;
+    CreateHotspots(120);     // size of hotspots
 }
 
 void CrackManager::SetType(int ID,const char* crackTexture,const char* maskTexture, float growTime, const char* audioFile){
@@ -104,7 +107,6 @@ void CrackManager::Process(){
     ofEnableBlendMode(OF_BLENDMODE_ADD);
     float t = ofGetElapsedTimef();
     
-    
     // Set up render state
     m_crackShader.begin();
 
@@ -157,5 +159,129 @@ void CrackManager::Process(){
         
     }
     m_crackShader.end();
+}
 
+
+
+// Helper Is in hotspot
+inline bool HotSpot::IsIn(ofPoint pt) const{
+    return (center.distance(pt)<radius);
+}
+
+void HotSpot::BeginDetect(){
+    occupied = false;
+    if (state==Tripped) {
+        state=Occupied;
+    }
+}
+
+void HotSpot::Occupy(){
+    occupied = true;
+    if (state==Primed){
+        state = Tripped;
+    }
+}
+
+
+bool HotSpot::HasTripped() const {
+    return (state==Tripped);
+}
+
+// Call this per check
+void HotSpot::EndDetect(){
+    if (!occupied){
+        if (state==Tripped || state==Occupied){
+            state = Vacated;
+            resetTime = ofGetElapsedTimef()+ triggerResetTime;
+        }
+        
+        if (state==Vacated && resetTime<ofGetElapsedTimef()){
+            state= Primed;
+        }
+        // do wait check
+    }
+}
+
+
+HotSpot::HotSpot(){
+    occupied = false;
+    state = Primed;
+}
+
+
+void HotSpot::DebugDisplay() const {
+
+    ofSetColor(255,255,255);
+    
+    if (state!=Primed)
+        ofFill();
+    else
+        ofNoFill();
+    
+    if (state==Tripped)
+        ofSetColor(255,0,0);
+    
+    if (state==Occupied)
+        ofSetColor(0,0,255);
+    
+    if (state==Vacated)
+        ofSetColor(0,255,0);
+    
+    ofCircle(center.x,center.y,radius);
+}
+
+void HotSpot::Set(float x, float y, float r){
+    center.x = x;
+    center.y = y;
+    radius = r;
+}
+
+void CrackManager::CreateHotspots(float minsize){
+
+    int icount = (int)(ofGetWidth()/minsize);
+    int jcount = (int)(ofGetHeight()/minsize);
+    float x,y;
+    HotSpot h;
+    // quickly fills the area with hotspots
+    for(int i=0;i<icount;i++){
+        for (int j=0;j<jcount;j++){
+            x = (minsize * 0.5) + (i * minsize);
+            y = (minsize * 0.5) + (j * minsize);
+            h.Set(x,y,minsize*0.5);
+            m_hotspots.push_back(h);
+        }
+    }
+}
+
+
+void CrackManager::drawDebug(){
+    for(int i = 0; i< m_hotspots.size();i++)
+        {
+            m_hotspots[i].DebugDisplay();
+   
+        }
+}
+
+void CrackManager::DetectMovement(vector<ofxCvBlob> blobs) {
+
+    // Go through hotspots
+    
+    for(int i = 0; i< m_hotspots.size();i++){
+        m_hotspots[i].BeginDetect();
+        
+        for(int j = 0; j < blobs.size();j++){
+            if (m_hotspots[i].IsIn(blobs[j].centroid)){
+                m_hotspots[i].Occupy();
+            }
+        }
+        m_hotspots[i].EndDetect();
+        
+        if (m_hotspots[i].HasTripped())
+        {
+            CreateCrack(m_hotspots[i].center.x,m_hotspots[i].center.y);
+                    //ofLog(OF_LOG_NOTICE,"Hotspot is trigger");
+        }
+    }
+    
+  
 }

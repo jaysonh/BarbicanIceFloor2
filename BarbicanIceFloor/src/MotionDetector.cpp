@@ -27,6 +27,8 @@ void MotionDetector::init()
 	angle = 0;
 	kinect.setCameraTiltAngle(angle);
 }
+
+
 void MotionDetector::update(float farThreshVal_)
 {
     farThreshold=farThreshVal_;
@@ -45,7 +47,7 @@ void MotionDetector::update(float farThreshVal_)
         grayThreshNear = grayImage;
         grayThreshFar = grayImage;
         grayThreshNear.threshold(nearThreshold, true);
-        grayThreshFar.threshold(farThreshold);
+        grayThreshFar.threshold(farThreshold, false);
         cvAnd(grayThreshNear.getCvImage(), grayThreshFar.getCvImage(), grayImage.getCvImage(), NULL);
         
         grayImage.flagImageChanged();
@@ -70,12 +72,14 @@ void MotionDetector::shutDownBeforeExit()
 }
 void MotionDetector::drawDebugScreen()
 {
+    ofDisableAlphaBlending();
+    ofSetColor(255,255,255);
     // draw from the live kinect
-    kinect.drawDepth(215, 10, 400, 300);
-    kinect.draw(625, 10, 400, 300);
+//    kinect.drawDepth(215, 10, 400, 300);
+//    kinect.draw(625, 10, 400, 300);
     
-    grayImage.draw(1035, 10, 400, 300);
-    contourFinder.draw(1035, 10, 400, 300);
+    grayImage.draw(0, 0, 640, 480);
+    contourFinder.draw(0, 0, 640, 480);
 	 
     ofDrawBitmapString("Depth Image", 220, 25);
     ofDrawBitmapString("Colour Image", 630, 25);

@@ -12,10 +12,10 @@ void IceRenderer::init(){
     // Dosomething
     m_iceShader.load("ice.vert","ice.frag");
     
-    m_backTexture.loadImage("cloudmultiple.png");
+    m_backTexture.loadImage(ofToDataPath("cloudmultiple.png"));
     m_backTexture.getTextureReference().setTextureWrap( GL_REPEAT, GL_REPEAT );
     
-    m_normalMap.loadImage("1005-normal.jpg");
+    m_normalMap.loadImage(ofToDataPath("1005-normal.jpg"));
     m_normalMap.getTextureReference().setTextureWrap( GL_REPEAT, GL_REPEAT );
     
     // set up background Plane

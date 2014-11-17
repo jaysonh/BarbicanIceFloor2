@@ -12,7 +12,7 @@
 void UserInterface::init()
 {
     gui.setup(); // most of the time you don't need a name
-	gui.add(farThreshSlider.setup("far thresh", 147,0 , 255));
+	gui.add(farThreshSlider.setup("far thresh", 196,0 , 255));
 
 }
 

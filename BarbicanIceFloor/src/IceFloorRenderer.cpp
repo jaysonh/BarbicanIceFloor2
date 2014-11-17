@@ -46,6 +46,6 @@ void IceFloorRenderer::update(vector <ofxCvBlob> blobList)
 void IceFloorRenderer::draw()
 {
     fbo.draw(0,0);
-    crackOverlayImg.draw(0,0,ofGetWidth(),ofGetHeight());
+   // crackOverlayImg.draw(0,0,ofGetWidth(),ofGetHeight());
     
 }
